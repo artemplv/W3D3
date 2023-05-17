@@ -65,21 +65,39 @@ class Array
     end
 end
 
-#[4]
-
-# [4, [1,2,3],[4,5,6]]
-# p [4].deep_dup
-# arr = [1, [2], [3, [4]]]
-# arr_2 = arr.deep_dup
-# arr[2] = "x"
-# p arr
-# p arr_2
-# p arr
-# p [[1,2,3],[4,5,6]].deep_dup
-
 def fib(n)
     return [1, 1].take(n) if n <= 2
 
     arr = fib(n - 1)
     arr << arr[-1] + arr[-2]
 end
+
+
+def bsearch(array,target)
+    midpoint = array.length / 2
+    return nil if array.empty?
+    return midpoint if array[midpoint] == target
+    left_side = array[0...midpoint]
+    right_side = array[midpoint+1..-1]
+
+    if target < array[midpoint]
+        v1 = bsearch(left_side, target)
+        return nil if v1 == nil
+        midpoint - (left_side.length - bsearch(left_side,target))
+    else
+        v2 = bsearch(right_side, target)
+        return nil if v2 == nil
+        midpoint + 1 + bsearch(right_side,target)
+    end
+end
+
+p bsearch([1, 2, 3], 1) # => 0
+p bsearch([2, 3, 4, 5], 3) # => 1
+p bsearch([2, 4, 6, 8, 10], 6) # => 2
+p bsearch([1, 3, 4, 5, 9], 5) # => 3
+p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+p bsearch([1,2,3,4,4,5,7,8,9,10,11],3) # => 2
+p bsearch([1,2,3,4,4,5,7,8,9,10,11],8) # => 7
+p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+p bsearch([1,2,3,4,4,5,7,8,9,10,11],15) # => nil
