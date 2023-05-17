@@ -91,13 +91,55 @@ def bsearch(array,target)
     end
 end
 
-p bsearch([1, 2, 3], 1) # => 0
-p bsearch([2, 3, 4, 5], 3) # => 1
-p bsearch([2, 4, 6, 8, 10], 6) # => 2
-p bsearch([1, 3, 4, 5, 9], 5) # => 3
-p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
-p bsearch([1,2,3,4,4,5,7,8,9,10,11],3) # => 2
-p bsearch([1,2,3,4,4,5,7,8,9,10,11],8) # => 7
-p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
-p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
-p bsearch([1,2,3,4,4,5,7,8,9,10,11],15) # => nil
+# p bsearch([1, 2, 3], 1) # => 0
+# p bsearch([2, 3, 4, 5], 3) # => 1
+# p bsearch([2, 4, 6, 8, 10], 6) # => 2
+# p bsearch([1, 3, 4, 5, 9], 5) # => 3
+# p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+# p bsearch([1,2,3,4,4,5,7,8,9,10,11],3) # => 2
+# p bsearch([1,2,3,4,4,5,7,8,9,10,11],8) # => 7
+# p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+# p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+# p bsearch([1,2,3,4,4,5,7,8,9,10,11],15) # => nil
+
+
+def merge_sort(array)
+    return array if array.length <= 1
+    left_side = array[0...array.length/2]
+    right_side = array[array.length/2..-1]
+
+    merge(merge_sort(left_side), merge_sort(right_side))
+
+end
+
+def merge(arr1,arr2)
+    new_arr = []
+
+    until arr1.empty? || arr2.empty?
+        if (arr1[0]) < (arr2[0])
+            new_arr.push(arr1.shift)
+        else
+            new_arr.push(arr2.shift)
+        end
+    end
+    new_arr += arr1 + arr2
+    new_arr
+end
+
+# p merge_sort([1,2,9,8,3,4,5,6])
+# p merge_sort([37,27,43,3,9,82,10])
+
+[1,2,3]
+
+def subsets(array)
+    return [] if array.empty? 
+    res_array = []
+    (0...array.length).each do |i| 
+        new_array = array[0...i] + array[i+1..-1]
+        res_array += subsets(new_array)
+    end
+    res_array
+end
+
+p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+
