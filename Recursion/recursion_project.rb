@@ -69,10 +69,17 @@ end
 
 # [4, [1,2,3],[4,5,6]]
 # p [4].deep_dup
-arr = [1, [2], [3, [4]]]
-arr_2 = arr.deep_dup
-arr[2] = "x"
-p arr
-p arr_2
+# arr = [1, [2], [3, [4]]]
+# arr_2 = arr.deep_dup
+# arr[2] = "x"
+# p arr
+# p arr_2
 # p arr
 # p [[1,2,3],[4,5,6]].deep_dup
+
+def fib(n)
+    return [1, 1].take(n) if n <= 2
+
+    arr = fib(n - 1)
+    arr << arr[-1] + arr[-2]
+end
